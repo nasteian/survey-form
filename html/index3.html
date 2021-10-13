@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/style_3.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Лабараторная3(Певнева)</title>
+
+    <script>
+        let arrayOfObjects = [];
+        let index = 0;
+        let object = {};
+
+        function OpenResult() {
+            let arrayOfObjects1 = arrayOfObjects;
+            // let object1 = {};
+
+            localStorage.clear();//Очищаем все хранилище
+
+            localStorage.setItem("arrayOfObjects1", JSON.stringify(arrayOfObjects1));//добавляем ключ значение
+
+            let result = [];
+            result[0] = arrayOfObjects1.length;
+            // result = result.join(";");
+            window.open('index3_2.html?&' + result);
+
+        }
+
+        function Submit() {
+
+            let sex = document.getElementsByName('sex');//автоматически обновляемая коллекция
+            let sexValue1 = " ";
+
+            sex.forEach(function(item, i, sex) {//выполняем функция один раз для каждого элемента
+                if (item.checked) {
+                    sexValue1 = item.value;
+                }
+            });
+
+            let sexValue = " ";
+            for (let i = 0; i < sex.length; i++) {
+                if (sex[i].checked) {
+                    sexValue = sex[i].value;
+                }
+            }
+
+            let music_time = document.getElementsByName('music_time');//автоматически обновляемая коллекция
+            let timeValue = " ";
+            music_time.forEach(function(item, i, music_time) {
+                if (item.checked) {
+                    timeValue = item.value;
+                }
+            });
+            for (let i = 0; i < music_time.length; i++) {
+                if (music_time[i].checked) {
+                    timeValue = music_time[i].value;
+                }
+            }
+
+            let genre = document.getElementsByName('genre');
+            let genreValue = " ";
+            for (let i = 0; i < genre.length; i++) {
+                if (genre[i].checked) {
+                    genreValue = genre[i].value;
+                }
+            }
+
+            object = {
+                name: document.getElementById("name").value,
+                radioSex: sexValue,
+                date: document.getElementById("dateB").value,
+                email: document.getElementById("email").value,
+                composer: document.getElementById("composer").value,
+                genre: genreValue,
+                music_time: timeValue
+            };
+            arrayOfObjects[index] = object;
+            index++;
+
+            alert("Данные добавлены!");
+
+        }
+    </script>
+
+    <script type="text/javascript">
+        function valid(form) {
+
+            let fail = false;
+            let name = form.name.value;
+            let sex = form.sex.value;
+            let date = form.dateB.value;
+            let email = form.email.value;
+            let adr_pattern = /[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}/;
+            let pattern = /^[а-яА-Я]+$/;
+
+            if (pattern.test(name) === false) //поиск совпадения регулярного выражения и строки test()
+                fail = "Проверьте правильность ввода имени!";
+            else if (sex === "")
+                fail = "Укажите Ваш пол!";
+            else if (date === "")
+                fail = "Укажите дату рождения!";
+            else if (adr_pattern.test(email) === false)
+                fail = "Вы ввели e-mail неправильно!";
+            if (fail)
+                alert(fail);
+            else Submit();
+        }
+    </script>
+
+</head>
+
+<body>
+    <div id="flex-conteiner">
+        <header class = "header1"><img src="../resource/violin.png" alt="Виолончелист">
+        </header>
+        <div id="group">
+            <nav>
+                <h3>Subscribe us!</h3>
+                <a href="">Instagram</a>
+                <a href="">Вконтакте</a>
+                <a href="">Twitter</a>
+                <a href="">Facebook</a>
+            </nav>
+            <article>
+                <form id="myForm" autocomplete="on" action=" " onsubmit="return false;">
+                    <h2>Ваши предпочтения в классической музыке?</h2>
+                    <fieldset>
+                        <legend>Контактная информация</legend>
+                        <div class="label"><label><span>Ваше имя: </span><input type="text" name="name" id="name" placeholder="Введите имя"
+                                                             autofocus   required  ></label></div>
+                        <div class="label">
+                            <label>
+                                    <span>Пол:</span>
+                                    <input type="radio" name="sex" value="мужской">мужской
+                                    <input type="radio" name="sex" value="женский">женский
+                                    <input type="radio" name="sex" value="женский">другое
+                                </label>
+                        </div>
+                        <div class="label"><label><span>Дата рождения: </span><input type="date" name="dataB" id="dateB" required max="2016-01-01"></label>
+                        </div>
+                        <div class="label"><label><span>E-mail: </span><input type="email" id="email" name="email"
+                                                                    placeholder="Введите E-mail" autofocus required></label></div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Предпочтения:</legend>
+                            <label><p class="span"><span>Любимый композитор:</span></p>
+                                    <p class="label"><select name="composer" id="composer"></p>
+                                        <option value="Людвиг ван Бетховен"> Людвиг ван Бетховен</option>
+                                        <option value="Иоганн Себастьян Бах"> Иоганн Себастьян Бах </option>
+                                        <option value="Вольфганг Амадей Моцарт">Вольфганг Амадей Моцарт</option>
+                                        <option value="Рихард Вагнер">Рихард Вагнер</option>
+                                        <option value="Пётр Ильич Чайковский">Пётр Ильич Чайковский</option>
+                                        <option value="Джузеппе Верди">Джузеппе Верди</option>
+                                        <option value="Игорь Федорович Стравинский">Игорь Федорович Стравинский</option>
+                                        <option value="Иоганн Штраус">Иоганн Штраус</option>
+                                        <option value="Сергей Васильевич Рахманинов">Сергей Васильевич Рахманинов</option>
+                                        <option value="Другое">Другое</option>
+                                    </select>
+                                </label>
+                                <p class="span">Любимые жанры:</p>
+                                <div class="label">
+                                    <input type="checkbox" name = "genre" value="O.симфония" checked> Органная симфония
+                                    <input type="checkbox" name = "genre" value="B.симфония"> Вокальная симфония
+                                    <input type="checkbox" name = "genre" value="Ноктюрн"> Ноктюрн
+                                    <input type="checkbox" name = "genre" value="Реквием"> Реквием
+                                </div>
+                                <div class="span"><span>Сколько часов в день вы слушаете музыку?</span>
+                                    <div class="label">
+                                        <label>
+                                                <p><input type="radio" name="music_time" value ="Меньше 1 часа">Меньше 1 часа</p>
+                                                <p><input type="radio" name="music_time" value ="1-4 часа">1-4 часа</p>
+                                                <p><input type="radio" name="music_time" value ="5 и больше часов">5 и больше часов</p>
+                                            </label>
+                                    </div>
+                                </div>
+                    </fieldset>
+                    <div>
+                        <input type="submit" onclick="valid(document.getElementById('myForm'))" value="Заполнить" />
+                        <input type="reset" value="Сброс" />
+                        <input type="button" onclick='OpenResult()' value="Посмотреть результаты" />
+                    </div>
+                </form>
+            </article>
+
+            <aside>
+                <h3>Меню</h3>
+                <a href="">Главная</a>
+            </aside>
+        </div>
+        <footer>
+            <p>BSUIR/Minsk, 2021</p>
+        </footer>
+    </div>
+</body>
+
+</html>

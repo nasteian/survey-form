@@ -1,0 +1,166 @@
+<html lang="en">
+  <head>
+    <title>Лабараторная3(Певнева)</title>
+    <link rel="stylesheet" type="text/css" href="../css/style_3.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script type="text/javascript">
+      function Print() {
+        let score = decodeURIComponent(location.search.substr(1)).split("&"); //декодируем символы,возвращаем запрос
+        score.splice(0, 1); //удаляем первый элемент
+        score = score.toString();
+        let mass = [];
+        mass = score.split(";"); //разделяем
+
+        for (let j = 0; j < mass.length; j++) {
+          mass[j] = mass[j].split(" ");
+        }
+
+        let arrayOfObjects1 = {};
+        let objects = [];
+
+        for (let i = 0; i < mass[0]; i++) {
+          objects[i] = JSON.parse(localStorage.getItem("arrayOfObjects1"))[i]; //разбираем строку json
+        }
+
+        var tbody = document.getElementById("tbody");
+        // const table = document.querySelector('table');
+
+        for (let i = 0; i < objects.length; i++) {
+          let tr = "<tr>";
+          let td = "<td>";
+
+          let trClose = "</tr>";
+          let tdClose = "</td>";
+
+          tr +=
+            td +
+            objects[i].name +
+            tdClose +
+            td +
+            objects[i].radioSex +
+            tdClose +
+            td +
+            objects[i].date +
+            tdClose +
+            td +
+            objects[i].email +
+            tdClose +
+            td +
+            objects[i].composer +
+            tdClose +
+            td +
+            objects[i].genre +
+            tdClose +
+            td +
+            objects[i].music_time +
+            tdClose +
+            trClose;
+          tbody.innerHTML += tr;
+        }
+
+        var option = document.getElementById("option");
+        for (let i = 0; i < objects.length; i++) {
+          let li = "<option>";
+          let liClose = "</option>";
+          li += objects[i].name + liClose;
+          option.innerHTML += li;
+        }
+      }
+
+      function openForm() {
+        window.close();
+      }
+      // const table = document.querySelector('table');
+
+      function initChanges() {
+        var table = document.getElementById("table");
+        const tableType = document.getElementById("toto").value,
+          tableColor = document.getElementById("to-color").value,
+          numb = +document.getElementById("num").value;
+
+        table.style = `border: ${numb}px ${tableType} ${tableColor};`;
+      }
+    </script>
+  </head>
+
+  <body onload="Print()">
+    <div id="flex-conteiner">
+      <header class="header2">
+        <img src="../resource/violin.png" alt="Виолончелист" />
+      </header>
+      <div id="group">
+        <nav>
+          <h3>Связь с нами</h3>
+          <a href="">Twitter</a>
+          <a href="">Instagram</a>
+          <a href="">Facebook</a>
+          <a href="">E-mail</a>
+          <a href="">Вконтакте</a>
+        </nav>
+        <article>
+          <div>
+            <select id="toto" style="margin-bottom: 20px" name="toColor">
+              <option value="dashed">пунктир</option>
+              <option value="double">двойная</option>
+              <option value="dotted">точечная</option>
+              <option value="solid">сплошная</option>
+            </select>
+            <select id="to-color" style="margin-bottom: 20px" name="toColor">
+              <option value="blue">blue</option>
+              <option value="red">red</option>
+              <option value="black">black</option>
+              <option value="green">green</option>
+            </select>
+            <input id="num" type="number" /> размер px
+            <div>
+              <input type="button" onclick="initChanges()" value="Применить" />
+            </div>
+            <table class="infoTable" id="table">
+              <caption>
+                <h3>Результирующая таблица</h3>
+              </caption>
+              <br />
+              <tr>
+                <th>Имя</th>
+                <th>Пол</th>
+                <th>Дата рождения</th>
+                <th>E-mail</th>
+                <th>Композитор</th>
+                <th>Жанры</th>
+                <th>Время</th>
+              </tr>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+          <select>
+            <optgroup
+              label="Имена зарегистрировавшихся"
+              style="margin: 0 auto"
+              id="option"
+            >
+              <!-- <option id ="option"></option> -->
+            </optgroup>
+
+            <!-- <option style="margin: 0 auto; font-size: 20px" >  </option> -->
+          </select>
+        </article>
+
+        <aside>
+          <h3>Меню</h3>
+          <a href="">Главная</a>
+          <a href="">Результаты опроса </a>
+          <input
+            type="button"
+            onclick="openForm()"
+            value="Вернуться к форме"
+            style="margin: 10px 20px 10px 20px; padding: 10px 10px"
+          />
+        </aside>
+      </div>
+      <footer>
+        <p>Minsk, 2019</p>
+      </footer>
+    </div>
+  </body>
+</html>
