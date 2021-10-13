@@ -2,3 +2,4 @@
 In this project I mastered:
 - JavaScript
 - HTML, CSS
+![Screenshot](screen.png)
